@@ -39,8 +39,8 @@
     },
     "Quiz": {
       "title": "Quiz",
-      "url": "https://villadsclaes.dk/quiz/",
-      "tagline": "Dynamisk quiz bygget i ASP.NET.",
+      "url": "https://quiz.villadsclaes.dk",
+      "tagline": "Lav quizzer med otte slags spørgsmål og lad deltagerne svare uden at oprette en bruger (ASP.NET Core).",
       "accent": "#f97316"
     },
     "LongBets": { "title": "LongBets", "tagline": "Langsigtede væddemål om fremtiden (ASP.NET MVC 5)." },
