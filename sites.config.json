@@ -1,0 +1,80 @@
+{
+  "$comment": "Håndplukkede oplysninger, der lægges oven på det, der hentes automatisk fra GitHub. Nøglen er repo-navnet (uden ejer). Poster med \"url\" vises som sites; resten vises som projekter. Sæt \"hidden\": true for at skjule et repo. \"extra\" er sites, der ikke hører til et offentligt repo.",
+  "owner": "VilladsClaes",
+  "domain": "villadsclaes.dk",
+  "includeForks": false,
+  "repos": {
+    "hjemmeside": {
+      "title": "Villads Claes",
+      "url": "https://mig.villadsclaes.dk",
+      "tagline": "Min personlige hjemmeside med CV, legeplads og hvad jeg lytter til lige nu.",
+      "featured": true,
+      "accent": "#7c5cff"
+    },
+    "Brochure": {
+      "title": "Eventur",
+      "url": "https://www.foretagsomheden.dk",
+      "tagline": "Event og ture i naturen: arbejdsfitness, shelterture, bål og mjød.",
+      "featured": true,
+      "accent": "#3ecf8e"
+    },
+    "venskabsbutik": {
+      "title": "Venskabsbutikken",
+      "url": "https://venskab.villadsclaes.dk",
+      "tagline": "Webshop hvor man kan købe et venskab med Villads.",
+      "featured": true,
+      "accent": "#ff5c8a"
+    },
+    "Hyponet": {
+      "title": "Hyponet",
+      "url": "https://hyponet.villadsclaes.dk",
+      "tagline": "Samtalen: et UI til at udforske tanker som et netværk.",
+      "accent": "#21c7f5"
+    },
+    "Anemetteolesen": {
+      "title": "Anemette Olesen",
+      "url": "https://anemetteolesen.dk",
+      "tagline": "Hjemmeside til Anemette Olesen (ASP.NET MVC).",
+      "accent": "#f5a524"
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "url": "https://villadsclaes.dk/quiz/",
+      "tagline": "Dynamisk quiz bygget i ASP.NET.",
+      "accent": "#f97316"
+    },
+    "LongBets": { "title": "LongBets", "tagline": "Langsigtede væddemål om fremtiden (ASP.NET MVC 5)." },
+    "Legeaftale": { "title": "Legeaftale", "tagline": "Lav legeaftaler mellem børn og forældre." },
+    "Villads-Repo": { "title": "Villads-Repo", "tagline": "Eksperimenter lavet med Google AI Studio." },
+    "SkoleGit": { "title": "SkoleGit", "tagline": "Opgaver fra webintegrator-uddannelsen." },
+    "landingpage": { "hidden": true },
+    "github-slideshow": { "hidden": true }
+  },
+  "extra": [
+    {
+      "id": "techtree",
+      "title": "TechTree",
+      "url": "https://techtree.villadsclaes.dk",
+      "tagline": "Folkeskolens læringsmål som et færdighedstræ inspireret af computerspil og Duolingo.",
+      "language": "TypeScript",
+      "featured": true,
+      "accent": "#a3e635"
+    },
+    {
+      "id": "invitation",
+      "title": "Vin á Velgørenhed",
+      "url": "https://invitation.villadsclaes.dk",
+      "tagline": "Invitationer og tilmelding til velgørenhedsarrangementet.",
+      "language": "C#",
+      "accent": "#e11d48"
+    },
+    {
+      "id": "blog",
+      "title": "Villads' blog",
+      "url": "http://blog.villadsclaes.dk",
+      "tagline": "Lister med ting du kan lave, byggeidéer og metoder til at redde planeten.",
+      "language": "Blog",
+      "accent": "#eab308"
+    }
+  ]
+}

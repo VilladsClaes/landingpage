@@ -1,0 +1,68 @@
+# Bygger landingssiden og lægger den i roden af villadsclaes.dk (public_html/ på Simply.com).
+# Kører ved push, hver 6. time (så nye repos, statusser og skærmbilleder kommer med af sig selv)
+# og kan startes manuelt fra fanen "Actions" eller fra et andet repo via repository_dispatch.
+name: Byg og udgiv landingsside
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [opdater-landingsside]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: udgiv-landingsside
+  cancel-in-progress: false
+
+jobs:
+  udgiv:
+    runs-on: ubuntu-latest
+    env:
+      HAR_FTP: ${{ secrets.FTP_SERVER != '' }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Installér Chromium til skærmbilleder
+        run: npx playwright install --with-deps chromium
+
+      - name: Byg siden
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build
+
+      - name: Gem den byggede side som artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: landingsside
+          path: dist/
+          retention-days: 7
+
+      - name: Mangler FTP-oplysninger?
+        if: env.HAR_FTP != 'true'
+        run: echo "::warning::FTP-secrets er ikke sat op endnu, så intet blev uploadet. Se README.md."
+
+      - name: Upload til Simply.com via FTPS
+        if: env.HAR_FTP == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_BRUGER }}
+          password: ${{ secrets.FTP_ADGANGSKODE }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_MAPPE || 'public_html/' }}
+          # Sletter aldrig filer på serveren, så undermapper som quiz/ ikke rammes
+          dangerous-clean-slate: false
+          state-name: .landingsside-sync-state.json
