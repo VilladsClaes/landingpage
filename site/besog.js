@@ -39,6 +39,8 @@ async function loadStats() {
 
 function countUp(el, to) {
   if (reduceMotion) { el.textContent = nf.format(to); return; }
+  // Sikkerhedsnet hvis animationsrammer er sat på pause (fx skjult fane)
+  setTimeout(() => (el.textContent = nf.format(to)), 2000);
   const start = performance.now();
   const tick = (now) => {
     const p = Math.min(1, (now - start) / 1600);
