@@ -1,3 +1,5 @@
+import { welcome } from "./welcome.js";
+
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (sel, el = document) => el.querySelector(sel);
 
@@ -245,7 +247,7 @@ function projectCard(site, i) {
   a.dataset.lang = site.language || "Andet";
   a.style.setProperty("--lc", langColor(site.language));
   a.style.setProperty("--d", `${(i % 4) * 70}ms`);
-  a.innerHTML = `<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><h3></h3><p></p><footer><span class="lang"></span><span class="when"></span></footer>`;
+  a.innerHTML = `<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><h3 translate="no"></h3><p></p><footer><span class="lang" translate="no"></span><span class="when"></span></footer>`;
   $("h3", a).textContent = site.title;
   $("p", a).textContent = site.tagline || "Et projekt fra værkstedet.";
   const lang = $(".lang", a);
@@ -293,6 +295,7 @@ function filters(projects) {
     const b = document.createElement("button");
     b.type = "button";
     b.textContent = l;
+    if (l !== "Alle" && l !== "Andet") b.translate = false;
     b.setAttribute("aria-pressed", l === "Alle");
     b.addEventListener("click", () => {
       box.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
@@ -336,9 +339,10 @@ async function main() {
   const names = data.sites.map((s) => s.title);
   for (let k = 0; k < 2; k++) names.forEach((n) => { const s = document.createElement("span"); s.textContent = n; marquee.append(s, Object.assign(document.createElement("i"), { textContent: "✦" })); });
 
-  typer(sites.filter((s) => s.probe?.state === "online").map((s) => host(s.url)).concat("ting til nettet"));
-  cosmos(data.sites.filter((s) => s.url || s.featured).slice(0, 14));
+  typer(sites.filter((s) => s.probe?.state === "online").map((s) => host(s.url)).concat("villadsclaes.dk"));
+  cosmos(sites.slice(0, 14));
   observe();
+  welcome();
 }
 
 main();

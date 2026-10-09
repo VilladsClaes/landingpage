@@ -6,7 +6,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -171,7 +171,11 @@ await Promise.all(
   })
 );
 
-// ---------- Skærmbilleder ----------
+// ---------- Sortering ----------
+const rank = (s) => (s.probe?.state === "online" ? 0 : s.url ? 1 : 2);
+sites.sort((a, b) => b.featured - a.featured || rank(a) - rank(b) || (b.pushedAt ?? "").localeCompare(a.pushedAt ?? ""));
+
+// ---------- Skærmbilleder og delingsbillede ----------
 if (!skipShots) {
   let chromium;
   try {
@@ -209,13 +213,12 @@ if (!skipShots) {
         await page.close();
       }
     }
+    await shareImage(context);
     await browser.close();
   }
 }
 
-// ---------- Sortering og output ----------
-const rank = (s) => (s.probe?.state === "online" ? 0 : s.url ? 1 : 2);
-sites.sort((a, b) => b.featured - a.featured || rank(a) - rank(b) || (b.pushedAt ?? "").localeCompare(a.pushedAt ?? ""));
+// ---------- Output ----------
 
 const languageTotals = {};
 for (const s of sites) for (const [lang, bytes] of Object.entries(s.languages ?? {})) languageTotals[lang] = (languageTotals[lang] ?? 0) + bytes;
@@ -234,3 +237,51 @@ const data = {
 
 await writeFile(path.join(dist, "data", "sites.json"), JSON.stringify(data, null, 2));
 console.log(`✔ dist/ bygget: ${data.stats.online} sites online, ${sites.length} projekter i alt.`);
+
+// Delingsbilledet (og.jpg, 1200×630) til Facebook, LinkedIn, Slack osv.
+// Tegnes som en lille HTML-side med de friske skærmbilleder og fotograferes.
+async function shareImage(context) {
+  const shots = sites.filter((s) => s.shot).slice(0, 4);
+  const online = sites.filter((s) => s.probe?.state === "online").length;
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const cards = shots
+    .map((s, i) => `<figure style="--i:${i}"><div class="bar"><i></i><i></i><i></i><span>${esc(new URL(s.url).host.replace(/^www\./, ""))}</span></div><img src="${s.shot.split("?")[0]}"></figure>`)
+    .join("");
+  const html = `<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="fonts.css"><style>
+    *{box-sizing:border-box;margin:0}
+    body{width:1200px;height:630px;overflow:hidden;background:#07060f;color:#f3f1ff;font-family:Inter,sans-serif;position:relative}
+    .bg{position:absolute;inset:0;background:radial-gradient(50% 60% at 15% 20%,rgba(124,92,255,.45),transparent 70%),radial-gradient(45% 55% at 90% 90%,rgba(255,92,138,.35),transparent 70%),radial-gradient(35% 40% at 70% 0%,rgba(33,199,245,.25),transparent 70%)}
+    .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 20%,#fff9,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#fff6,transparent),radial-gradient(1px 1px at 85% 55%,#fff8,transparent),radial-gradient(1px 1px at 10% 70%,#fff7,transparent);background-size:300px 300px}
+    .text{position:absolute;left:72px;top:92px;width:560px;z-index:2}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid #ffffff22;border-radius:99px;background:#ffffff0d;font:500 18px 'JetBrains Mono',monospace;color:#c9c5e6}
+    .pill b{width:10px;height:10px;border-radius:50%;background:#3ee08f;box-shadow:0 0 12px #3ee08f}
+    h1{margin-top:28px;font:800 132px/.86 'Bricolage Grotesque',sans-serif;letter-spacing:-.055em}
+    h1 span{display:block;background:linear-gradient(100deg,#7c5cff,#ff5c8a 45%,#ffb35c 75%,#21c7f5);-webkit-background-clip:text;color:transparent}
+    p{margin-top:30px;font:500 26px/1.35 Inter,sans-serif;color:#c9c5e6}
+    .url{position:absolute;left:72px;bottom:56px;font:600 22px 'JetBrains Mono',monospace;color:#f3f1ff;z-index:2}
+    .stack{position:absolute;right:-40px;top:70px;width:640px;height:520px;perspective:1600px}
+    figure{position:absolute;width:520px;border-radius:16px;overflow:hidden;background:#0b0a17;border:1px solid #ffffff26;box-shadow:0 40px 80px -20px #000c;
+      transform:translate(calc(var(--i)*-44px),calc(var(--i)*92px)) rotateY(-22deg) rotateX(8deg) rotateZ(-4deg);left:120px;z-index:calc(10 - var(--i))}
+    .bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#ffffff0a;border-bottom:1px solid #ffffff1a}
+    .bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+    .bar span{margin-left:10px;font:13px 'JetBrains Mono',monospace;color:#a19dbd}
+    img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+  </style></head><body><div class="bg"></div><div class="stars"></div>
+  <div class="text"><div class="pill"><b></b>${online} sites online</div><h1>Villads<span>Claes</span></h1><p>Alle mine sites og projekter samlet ét sted.</p></div>
+  <div class="url">villadsclaes.dk</div><div class="stack">${cards}</div></body></html>`;
+  const tmp = path.join(dist, "_og.html");
+  await writeFile(tmp, html);
+  const page = await context.newPage();
+  try {
+    await page.setViewportSize({ width: 1200, height: 630 });
+    await page.goto(pathToFileURL(tmp).href, { waitUntil: "load" });
+    await page.evaluate(() => document.fonts.ready);
+    await page.screenshot({ path: path.join(dist, "og.jpg"), type: "jpeg", quality: 85 });
+    console.log("  🖼  Delingsbillede (og.jpg)");
+  } catch (err) {
+    console.warn(`  ⚠ Delingsbilledet fejlede: ${err.message}`);
+  } finally {
+    await page.close();
+    await rm(tmp, { force: true });
+  }
+}

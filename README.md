@@ -42,6 +42,13 @@ Workflowet bygger altid, men uploader først når disse **repository secrets** f
 
 Mappen kan ændres med repository-variablen `FTP_MAPPE` (standard `public_html/`, med afsluttende `/`).
 
+## Besøgende, sprog og privatliv
+
+- **Ingen cookies og ingen sporing.** Skrifttyperne ligger i `site/fonts/`, så der hentes intet fra Google. Se `site/privatliv.html`.
+- **Velkomst på eget sprog** (`site/welcome.js`): vises for europæiske browsersprog (ikke dansk). Knappen oversætter med Chromes indbyggede oversætter, hvis sprogmodellen er hentet, og ellers åbnes Google Oversæt. Navne, adresser og sprognavne er markeret med `translate="no"`, så browserens oversætter lader dem være.
+- **Delingsbillede** (`og.jpg`, 1200×630) tegnes af `scripts/build.mjs` ud fra de friske skærmbilleder.
+- **Bots og svindlere** (`site/web.config`): sikkerhedsheadere mod indlejring i fremmede sider, og forespørgsler efter WordPress, `.env`, `.git` osv. samt kendte angrebsværktøjer afvises med 404.
+
 ## Kør lokalt
 
 ```bash

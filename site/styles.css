@@ -275,11 +275,59 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2
 @keyframes spin { to { rotate: 360deg; } }
 .footer-big { margin: 0; font: 800 clamp(40px, 9vw, 120px) / 0.95 var(--display); letter-spacing: -0.05em; }
 .footer-meta { color: var(--muted); font: 13px var(--mono); margin: 24px 0; }
-.to-top { font-weight: 600; color: var(--muted); }
-.to-top:hover { color: var(--text); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
   .marquee-track { animation: none; }
 }
+
+/* ---------- Velkomst på eget sprog ---------- */
+.welcome {
+  position: fixed; z-index: 90; left: 50%; bottom: 20px; width: min(560px, calc(100% - 32px));
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: center;
+  padding: 18px 18px 18px 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 14, 34, 0.82); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(124, 92, 255, 0.15), 0 0 60px -20px rgba(124, 92, 255, 0.6);
+  transform: translate(-50%, 140%); opacity: 0; transition: transform 0.8s var(--ease), opacity 0.5s;
+}
+.welcome.show { transform: translate(-50%, 0); opacity: 1; }
+.welcome::before {
+  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; padding: 1px;
+  background: linear-gradient(120deg, var(--violet), var(--pink), #ffb35c, var(--cyan)); background-size: 300% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: hue 6s linear infinite; opacity: 0.7;
+}
+.welcome-wave { grid-row: span 2; font-size: 34px; transform-origin: 70% 80%; animation: wave 2.4s ease-in-out 1.8s 2; }
+@keyframes wave { 0%, 60%, 100% { rotate: 0deg; } 10%, 30% { rotate: 16deg; } 20%, 40% { rotate: -8deg; } }
+.welcome-text strong { font: 800 20px / 1.2 var(--display); letter-spacing: -0.01em; }
+.welcome-text p { margin: 2px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.welcome-actions { grid-column: 2; display: flex; gap: 8px; margin-top: 8px; }
+.welcome button {
+  display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer; font: 600 14px var(--body);
+  border-radius: 999px; transition: transform 0.25s var(--ease), background 0.3s, opacity 0.3s;
+}
+.welcome button svg { width: 17px; height: 17px; }
+.welcome-translate { padding: 10px 16px; background: var(--text); color: var(--bg); }
+.welcome-translate:hover { transform: translateY(-2px); }
+.welcome-translate:disabled { opacity: 0.75; cursor: progress; transform: none; }
+.welcome-close { padding: 10px; background: rgba(255, 255, 255, 0.08); color: var(--text); }
+.welcome-close:hover { background: rgba(255, 255, 255, 0.16); }
+
+.footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 28px; font-weight: 600; }
+.footer-links a { color: var(--muted); transition: color 0.3s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ---------- Privatlivsside ---------- */
+.legal { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; padding: 120px 16px 80px; }
+.legal h1 { margin: 12px 0 24px; font: 800 clamp(40px, 7vw, 72px) / 0.95 var(--display); letter-spacing: -0.04em; }
+.legal h2 { margin: 48px 0 8px; font: 700 26px / 1.2 var(--display); letter-spacing: -0.02em; }
+.legal p, .legal li { color: var(--muted); font-size: 17px; }
+.legal strong { color: var(--text); }
+.legal a { color: var(--text); text-decoration: underline; text-decoration-color: var(--pink); text-underline-offset: 3px; }
+.legal .lead { font-size: 20px; color: var(--text); }
+.legal .back { display: inline-block; margin-bottom: 32px; text-decoration: none; color: var(--muted); font-weight: 600; }
+.legal code { font: 14px var(--mono); padding: 2px 6px; border-radius: 6px; background: var(--panel-2); color: var(--text); }
+.legal .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 32px 0 0; padding: 0; list-style: none; }
+.legal .summary li { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); color: var(--text); font-weight: 600; }
+.legal .summary li span { display: block; font-size: 26px; margin-bottom: 6px; }
