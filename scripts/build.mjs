@@ -7,6 +7,7 @@ import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { geoDatabase, worldMap } from "./visitors.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -18,6 +19,10 @@ await rm(dist, { recursive: true, force: true });
 await cp(path.join(root, "site"), dist, { recursive: true });
 await mkdir(path.join(dist, "data"), { recursive: true });
 await mkdir(path.join(dist, "shots"), { recursive: true });
+
+// Besøgstælleren: landedatabase og verdenskort
+await geoDatabase(dist);
+await worldMap(dist);
 
 // ---------- GitHub ----------
 async function gh(url) {

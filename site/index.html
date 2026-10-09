@@ -82,6 +82,26 @@
       <div class="filters reveal" id="filters" role="toolbar" aria-label="Filtrér efter sprog"></div>
       <div class="project-grid" id="project-grid"></div>
     </section>
+
+    <section id="besog" class="section" hidden>
+      <div class="section-head reveal">
+        <span class="kicker">04 — Besøgende</span>
+        <h2>Hvor I kommer fra</h2>
+        <p>En tæller uden cookies. Kortet lyser op, efterhånden som folk fra hele verden kigger forbi.</p>
+      </div>
+      <dl class="visit-stats reveal">
+        <div><dt>Besøgende</dt><dd data-visit="besogende">0</dd></div>
+        <div><dt>Lande</dt><dd data-visit="lande">0</dd></div>
+        <div><dt>I dag</dt><dd data-visit="idag">0</dd></div>
+      </dl>
+      <div class="world-wrap reveal">
+        <svg class="world" id="world" role="img" aria-label="Verdenskort over hvor de besøgende kommer fra"></svg>
+        <div class="world-tip" id="world-tip" hidden></div>
+        <div class="world-days" id="world-days" aria-hidden="true"></div>
+      </div>
+      <ol class="country-list reveal" id="country-list"></ol>
+      <p class="geo-credit">Landet slås op på serveren og IP-adressen gemmes ikke. <a href="privatliv.html#besog">Læs mere</a> · <a href="https://db-ip.com" rel="noopener">IP Geolocation by DB-IP</a></p>
+    </section>
   </main>
 
   <footer class="footer">

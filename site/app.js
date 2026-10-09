@@ -1,4 +1,5 @@
 import { welcome } from "./welcome.js";
+import { visitors } from "./besog.js";
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (sel, el = document) => el.querySelector(sel);
@@ -343,6 +344,7 @@ async function main() {
   cosmos(sites.slice(0, 14));
   observe();
   welcome();
+  visitors(observe);
 }
 
 main();

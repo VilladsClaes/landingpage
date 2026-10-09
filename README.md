@@ -46,6 +46,7 @@ Mappen kan ændres med repository-variablen `FTP_MAPPE` (standard `public_html/`
 
 - **Ingen cookies og ingen sporing.** Skrifttyperne ligger i `site/fonts/`, så der hentes intet fra Google. Se `site/privatliv.html`.
 - **Velkomst på eget sprog** (`site/welcome.js`): vises for europæiske browsersprog (ikke dansk). Knappen oversætter med Chromes indbyggede oversætter, hvis sprogmodellen er hentet, og ellers åbnes Google Oversæt. Navne, adresser og sprognavne er markeret med `translate="no"`, så browserens oversætter lader dem være.
+- **Besøgstæller** (`site/api/besog.ashx` + `site/besog.js`): tæller unikke besøgende pr. land og dag uden cookies. Landet slås op i `App_Data/geo.bin`, som buildet laver ud fra DB-IP's gratis landedatabase (CC BY 4.0). IP-adresser gemmes aldrig; tallene ligger i `App_Data/besog.txt` på serveren. Verdenskortet (`data/world.json`) tegnes også under buildet. Prøv kortet lokalt med `?demo-besog`.
 - **Delingsbillede** (`og.jpg`, 1200×630) tegnes af `scripts/build.mjs` ud fra de friske skærmbilleder.
 - **Bots og svindlere** (`site/web.config`): sikkerhedsheadere mod indlejring i fremmede sider, og forespørgsler efter WordPress, `.env`, `.git` osv. samt kendte angrebsværktøjer afvises med 404.
 
