@@ -50,6 +50,18 @@ Mappen kan ændres med repository-variablen `FTP_MAPPE` (standard `public_html/`
 - **Delingsbillede** (`og.jpg`, 1200×630) tegnes af `scripts/build.mjs` ud fra de friske skærmbilleder.
 - **Bots og svindlere** (`site/web.config`): sikkerhedsheadere mod indlejring i fremmede sider, og forespørgsler efter WordPress, `.env`, `.git` osv. samt kendte angrebsværktøjer afvises med 404.
 
+## Udgiv fra denne computer
+
+Hvis GitHub Actions ikke kan udgive (eller forsiden er blevet overskrevet), kan `dist/` lægges op direkte:
+
+```bash
+npm run build
+npm run udgiv        # = python scripts/udgiv-lokalt.py, spørger efter FTP-kodeordet
+```
+
+Scriptet uploader *alle* filer i `dist/` til `public_html/` over FTPS og sletter aldrig noget. Kodeordet kan også gives i `SIMPLY_FTP_PASS`. `--check` viser kun, hvad der ligger på serveren.
+Bemærk: Workflowets FTP-upload husker, hvad den selv har lagt op, og uploader kun ændrede filer – så en fil, som noget andet har overskrevet på serveren, bliver ikke rettet af næste build. Brug det lokale script til det.
+
 ## Kør lokalt
 
 ```bash

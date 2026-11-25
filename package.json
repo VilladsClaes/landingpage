@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:fast": "node scripts/build.mjs --no-shots",
-    "serve": "npx --yes http-server@14.1.1 dist -p 8080 -c-1"
+    "serve": "npx --yes http-server@14.1.1 dist -p 8080 -c-1",
+    "udgiv": "python scripts/udgiv-lokalt.py"
   },
   "devDependencies": {
     "d3-geo": "3.1.1",

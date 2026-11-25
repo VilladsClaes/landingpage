@@ -43,12 +43,78 @@
       "tagline": "Lav quizzer med otte slags spørgsmål og lad deltagerne svare uden at oprette en bruger (ASP.NET Core).",
       "accent": "#f97316"
     },
-    "LongBets": { "title": "LongBets", "tagline": "Langsigtede væddemål om fremtiden (ASP.NET MVC 5)." },
-    "Legeaftale": { "title": "Legeaftale", "tagline": "Lav legeaftaler mellem børn og forældre." },
-    "Villads-Repo": { "title": "Villads-Repo", "tagline": "Eksperimenter lavet med Google AI Studio." },
-    "SkoleGit": { "title": "SkoleGit", "tagline": "Opgaver fra webintegrator-uddannelsen." },
-    "landingpage": { "hidden": true },
-    "github-slideshow": { "hidden": true }
+    "LongBets": {
+      "title": "LongBets",
+      "url": "https://longbets.villadsclaes.dk",
+      "tagline": "Danmarks mest tålmodige bookmaker: odds på fremtiden mindst ét år ude, kun med Pralkroner.",
+      "accent": "#38bdf8"
+    },
+    "Legeaftale": {
+      "title": "Legeaftale",
+      "tagline": "Lav legeaftaler mellem børn og forældre."
+    },
+    "Villads-Repo": {
+      "title": "Villads-Repo",
+      "tagline": "Eksperimenter lavet med Google AI Studio."
+    },
+    "SkoleGit": {
+      "title": "SkoleGit",
+      "tagline": "Opgaver fra webintegrator-uddannelsen."
+    },
+    "kept": {
+      "title": "Kept",
+      "url": "https://keptinventory.info",
+      "tagline": "Selvhostet, open source-oversigt over alt hvad du ejer og hvor det står – med AI-assistent og MCP-server indbygget.",
+      "featured": true,
+      "accent": "#14b8a6"
+    },
+    "Blog": {
+      "title": "Villads' blog",
+      "url": "https://blog.villadsclaes.dk",
+      "tagline": "En blog hvor læserne må sætte spor: stemme, understrege, skrive i marginen og tegne graffiti.",
+      "accent": "#eab308"
+    },
+    "Plakatrundvisning": {
+      "title": "Skarresø – interaktivt kort",
+      "url": "https://interaktivtkort.villadsclaes.dk",
+      "tagline": "Klik på et sted i menuen, og kameraet glider hen over den store illustration. Upload din egen og sæt dine egne steder.",
+      "accent": "#60a5fa"
+    },
+    "GoodBad": {
+      "title": "GoodBad",
+      "url": "https://goodbad.villadsclaes.dk",
+      "tagline": "Køb bedre, køb sjældnere: anmeldelser af produkter i stedet for firmaer (ASP.NET Core).",
+      "accent": "#22c55e"
+    },
+    "Samtalebreve": {
+      "title": "Dagens brev",
+      "tagline": "Et kompliment og dagens spørgsmål, skrevet frem på en gammel skrivemaskine."
+    },
+    "FilosofferLitteratur": {
+      "title": "Filosofografen",
+      "tagline": "Grafdatabase over filosoffer, deres begreber og de bøger, film og institutioner begreberne har skabt (Neo4j)."
+    },
+    "DanielDanielDaniel": {
+      "title": "Daniel Nygaard Rasmussen",
+      "tagline": "Hjemmeside til tømrer i gammelt håndværk."
+    },
+    "BotsAreWelcome": {
+      "title": "BotsAreWelcome",
+      "tagline": "Et projekt der giver bots det, de bør have."
+    },
+    "Skolehjemsamtale": {
+      "title": "Skolehjemsamtale",
+      "tagline": "Samtaleværktøj til skole-hjem-samarbejde, hvor eleven får en reel stemme (ASP.NET Core)."
+    },
+    "FileUpload": {
+      "hidden": true
+    },
+    "landingpage": {
+      "hidden": true
+    },
+    "github-slideshow": {
+      "hidden": true
+    }
   },
   "extra": [
     {
@@ -61,20 +127,20 @@
       "accent": "#a3e635"
     },
     {
+      "id": "bornetv",
+      "title": "BørneTV",
+      "url": "https://kidstv.villadsclaes.dk",
+      "tagline": "Dit eget rolige flow-TV til børnene – med lokal dansk dubbing.",
+      "language": "JavaScript",
+      "accent": "#ffca9a"
+    },
+    {
       "id": "invitation",
       "title": "Vin á Velgørenhed",
       "url": "https://invitation.villadsclaes.dk",
       "tagline": "Invitationer og tilmelding til velgørenhedsarrangementet.",
       "language": "C#",
       "accent": "#e11d48"
-    },
-    {
-      "id": "blog",
-      "title": "Villads' blog",
-      "url": "http://blog.villadsclaes.dk",
-      "tagline": "Lister med ting du kan lave, byggeidéer og metoder til at redde planeten.",
-      "language": "Blog",
-      "accent": "#eab308"
     }
   ]
 }

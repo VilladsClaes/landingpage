@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   udgiv:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 understøtter ikke ubuntu-latest (26.04)
     env:
       HAR_FTP: ${{ secrets.FTP_SERVER != '' }}
     steps:
